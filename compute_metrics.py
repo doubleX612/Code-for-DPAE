@@ -18,10 +18,10 @@ def RMS_temporal(pred,ground):
 def RMS_spectral(pred,ground):
     psd_pred,psd_ground =[],[]
     for i in range(pred.shape[0]):
-        f, psd_spec = signal.welch(pred, 512, 'flattop', 512, scaling='spectrum')
+        f, psd_spec = signal.welch(pred[i], 512, 'flattop', 512, scaling='spectrum')
       
         psd_pred.append(psd_spec.reshape(-1))
-        f, psd_spec = signal.welch(ground, 512, 'flattop', 512, scaling='spectrum')
+        f, psd_spec = signal.welch(ground[i], 512, 'flattop', 512, scaling='spectrum')
         psd_ground.append(psd_spec.reshape(-1))
     psd_pred,psd_ground = np.array(psd_pred),np.array(psd_ground)
     rms_numerator = RMS(psd_pred-psd_ground)
